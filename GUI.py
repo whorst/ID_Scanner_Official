@@ -116,9 +116,9 @@ class MyFirstGUI:
             time_to_compare_array[0] = str(int(time_to_compare_array[0])+12)
             time_to_compare_array[1] = time_to_compare_array[1].lower().replace("pm","")
         else:
-            time_to_compare_array[1] = time_to_compare_array[1].replace("am","")
+            time_to_compare_array[1] = time_to_compare_array[1].lower().replace("am","")
 
-        print(time_to_compare_array, event_start_time_array)
+        print(time_to_compare_array, event_start_time_array, "hhhhhhh")
 
         if int(time_to_compare_array[0]) < int(event_start_time_array[0]):
             #print(1)
