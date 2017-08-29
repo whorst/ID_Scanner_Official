@@ -90,8 +90,8 @@ class MyFirstGUI:
         This simply makes sure that the user has entered the time they want to begin at correctly:
         '''
         arrival_time = self.entry_start_time.get()
-        print()
-        print((len(arrival_time)< 6))
+        # print()
+        # print((len(arrival_time)< 6))
         #print(("am" not in arrival_time.lower()) and ("pm" not in arrival_time.lower()))
         print()
         if((len(arrival_time)< 6) and (("am" not in arrival_time.lower()) or ("pm" not in arrival_time.lower()))):
@@ -104,8 +104,8 @@ class MyFirstGUI:
         This method will be confusing. Split the 24 hour times up into arrays, with the first element being the hour
         and the second element being the minute. Compare the hours. Then the minutes.
         '''
-        print("Event started at"+self.event_time_start)
-        print("Person arrived at"+time_to_compare)
+        # print("Event started at"+self.event_time_start)
+        # print("Person arrived at"+time_to_compare)
         event_start_time_array = self.event_time_start.split(":")
         time_to_compare_array = time_to_compare.split(":")
 
@@ -143,7 +143,7 @@ class MyFirstGUI:
 
         if (self.verify_document_title() and self.verify_time()):
 
-            print("Yes")
+            #print("Yes")
 
             event_start = self.get_start_time()
             event_title = self.get_document_title()+".xlsx"
@@ -156,6 +156,7 @@ class MyFirstGUI:
 
             #Set the width of the columns
             present_worksheet.set_column("A:A", 30)
+            present_worksheet.set_column("C:C", 30)
             present_worksheet.set_column("B:B", 30)
             absent_worksheet.set_column("A:A", 30)
             absent_worksheet.set_column("B:B", 30)
@@ -163,6 +164,8 @@ class MyFirstGUI:
             #Write the brother's name and the time they've arrived to the relevant columns and rows
             present_worksheet.write_string(self.present_row_num, self.present_column_num, "Brother Name")
             present_worksheet.write_string(self.present_row_num, self.present_column_num+1, "Time Arrived")
+            start_time_string =  "Event Start " + self.entry_start_time.get()
+            present_worksheet.write_string(self.present_row_num, self.present_column_num + 2, start_time_string)
             absent_worksheet.write_string(self.absent_row_num, self.absent_column_num, "Brother Name")
             absent_worksheet.write_string(self.absent_row_num, self.absent_column_num + 1, "Time Arrived")
 
