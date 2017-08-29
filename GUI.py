@@ -90,8 +90,7 @@ class MyFirstGUI:
         This simply makes sure that the user has entered the time they want to begin at correctly:
         '''
         arrival_time = self.entry_start_time.get()
-        # print()
-        # print((len(arrival_time)< 6))
+
         #print(("am" not in arrival_time.lower()) and ("pm" not in arrival_time.lower()))
         print()
         if((len(arrival_time)< 6) and (("am" not in arrival_time.lower()) or ("pm" not in arrival_time.lower()))):
@@ -104,10 +103,20 @@ class MyFirstGUI:
         This method will be confusing. Split the 24 hour times up into arrays, with the first element being the hour
         and the second element being the minute. Compare the hours. Then the minutes.
         '''
-        # print("Event started at"+self.event_time_start)
-        # print("Person arrived at"+time_to_compare)
+
+
+        print("Event started at"+self.event_time_start)
+        print("Person arrived at"+time_to_compare)
+
+
         event_start_time_array = self.event_time_start.split(":")
         time_to_compare_array = time_to_compare.split(":")
+
+        if "pm" in time_to_compare_array[1].lower():
+            time_to_compare_array[0] = str(int(time_to_compare_array[0])+12)
+            time_to_compare_array[1] = time_to_compare_array[1].lower().replace("pm","")
+        else:
+            time_to_compare_array[1] = time_to_compare_array[1].replace("am","")
 
         print(time_to_compare_array, event_start_time_array)
 
@@ -120,6 +129,7 @@ class MyFirstGUI:
             return False
 
         if int(time_to_compare_array[0]) == int(event_start_time_array[0]):
+
             if(int(time_to_compare_array[1]) < int(event_start_time_array[1])):
                 #print(3)
                 return True
@@ -143,8 +153,6 @@ class MyFirstGUI:
 
         if (self.verify_document_title() and self.verify_time()):
 
-            #print("Yes")
-
             event_start = self.get_start_time()
             event_title = self.get_document_title()+".xlsx"
 
@@ -157,6 +165,7 @@ class MyFirstGUI:
             #Set the width of the columns
             present_worksheet.set_column("A:A", 30)
             present_worksheet.set_column("C:C", 30)
+
             present_worksheet.set_column("B:B", 30)
             absent_worksheet.set_column("A:A", 30)
             absent_worksheet.set_column("B:B", 30)
@@ -176,6 +185,7 @@ class MyFirstGUI:
             for key_brother_name, value_time in GetBrother.people_present.items():
                 twelve_hour_time = datetime.strptime(value_time, "%H:%M")
                 value_time = twelve_hour_time.strftime("%I:%M %p")
+
                 #WOOOOOOOWWWWW THIS IS FUUUUCKED
                 #print(self.arrived_on_time(value_time))
                 if(self.arrived_on_time(value_time)):
@@ -200,6 +210,9 @@ class MyFirstGUI:
 
             for label in self.labels_to_delete:
                 label.destroy()
+            self.xnum = 1
+            self.ynum = 6
+            GetBrother.people_present = {}
         else:
             print("NOOOOOO")
 
